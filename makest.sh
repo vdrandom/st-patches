@@ -5,10 +5,11 @@ ST_CFG=$PWD/config.h
 PATCHLIST=(
     st-boxdraw.patch
     st-bright-bold-text.patch
-    st-config-mk.patch
     st-disable-bold-italic-fonts.patch
     st-disable-intensity-styles.patch
-    st-fix-argv.patch
+)
+MAKE_OPTS=(
+    PREFIX=$HOME/.local
 )
 
 if [[ ! -r $ST_SRC/.git/config ]]; then
@@ -27,4 +28,4 @@ for patch in $PATCHLIST; do
     patch -p1 -i ../$patch
 done
 
-make $*
+make $MAKE_OPTS $*
