@@ -28,4 +28,4 @@ for patch in $PATCHLIST; do
     patch -p1 -i ../$patch
 done
 
-make $MAKE_OPTS $*
+make $MAKE_OPTS ${*-install}
