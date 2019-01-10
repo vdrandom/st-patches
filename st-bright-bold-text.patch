@@ -8,7 +8,7 @@
 + * foreground, default color for bold text, background, cursor, reverse cursor
   */
  unsigned int defaultfg = 7;
-+unsigned int defaultbd = 7;
++unsigned int defaultbd = 15;
  unsigned int defaultbg = 0;
  static unsigned int defaultcs = 256;
  static unsigned int defaultrcs = 257;
