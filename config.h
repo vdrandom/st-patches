@@ -61,14 +61,6 @@ static unsigned int blinktimeout = 0;
 static unsigned int cursorthickness = 1;
 
 /*
- * 1: custom-draw (without using the font) most of the lines/blocks characters
- *    for gapless alignment between cells. This includes all the codepoints at
- *    U+2500 - U+259F except dashes, diagonals and shades.
- * 0: disable (render all glyphs normally from the font).
- */
-const int boxdraw = 1;
-
-/*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
  * it
  */
