@@ -46,8 +46,8 @@ static unsigned int tripleclicktimeout = 600;
 int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
-static unsigned int xfps = 60;
-static unsigned int actionfps = 30;
+static unsigned int xfps = 300;
+static unsigned int actionfps = 150;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
@@ -59,6 +59,18 @@ static unsigned int blinktimeout = 0;
  * thickness of underline and bar cursors
  */
 static unsigned int cursorthickness = 1;
+
+/*
+ * 1: render most of the lines/blocks characters without using the font for
+ *    perfect alignment between cells (U2500 - U259F except dashes/diagonals).
+ *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
+ * 0: disable (render all U25XX glyphs normally from the font).
+ */
+const int boxdraw = 1;
+const int boxdraw_bold = 0;
+
+/* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
+const int boxdraw_braille = 0;
 
 /*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling

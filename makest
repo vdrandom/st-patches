@@ -4,7 +4,7 @@ ST_REPO=https://git.suckless.org/st
 ST_SRC=$PWD/st
 ST_CFG=$PWD/config.h
 PATCHLIST=(
-    #st-boxdraw.patch
+    st-boxdraw_v2-0.8.2.patch
     st-bright-bold-text.patch
     st-disable-bold-italic-fonts.patch
     st-disable-intensity-styles.patch
