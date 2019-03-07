@@ -1,11 +1,12 @@
 #!/usr/bin/env zsh
-set -x
+set -x -e
 ST_REPO=https://git.suckless.org/st
 ST_SRC=$PWD/st
 ST_CFG=$PWD/config.h
 PATCHLIST=(
-    st-boxdraw_v2-0.8.2.patch
+    st-boxdraw_v2-0.8.2.diff
     st-bright-bold-text.patch
+    st-clipboard.patch
     st-disable-bold-italic-fonts.patch
     st-disable-intensity-styles.patch
 )
