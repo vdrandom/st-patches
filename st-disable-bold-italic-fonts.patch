@@ -1,45 +1,60 @@
+# based on Alex Kozadaev's st-disable-bold-italic-fonts.diff
+# https://st.suckless.org/patches/disable_bold_italic_fonts/
+
+diff --git a/config.def.h b/config.def.h
+index 482901e..50a4896 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -8,6 +8,10 @@
+@@ -6,6 +6,12 @@
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
  static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
- static int borderpx = 2;
- 
-+/* disable bold and italic font styles */
++
++/* disable bold, italic and roman fonts globally */
 +int disablebold = 0;
 +int disableitalic = 0;
++int disableroman = 0;
 +
+ static int borderpx = 2;
+ 
  /*
-  * What program is execed by st depends of these precedence rules:
-  * 1: program passed with -e
+diff --git a/x.c b/x.c
+index 5828a3b..ad65501 100644
 --- a/x.c
 +++ b/x.c
-@@ -240,6 +240,10 @@ static char *opt_title = NULL;
+@@ -244,6 +244,11 @@ static char *opt_title = NULL;
  
  static int oldbutton = 3; /* button event on startup: 3 = release */
  
 +/* declared in config.h */
 +extern int disablebold;
 +extern int disableitalic;
++extern int disableroman;
 +
  void
  clipcopy(const Arg *dummy)
  {
-@@ -1152,13 +1156,15 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
- 			frcflags = FRC_NORMAL;
- 			runewidth = win.cw * ((mode & ATTR_WIDE) ? 2.0f : 1.0f);
- 			if ((mode & ATTR_ITALIC) && (mode & ATTR_BOLD)) {
--				font = &dc.ibfont;
-+				if (!disableitalic && !disablebold) font = &dc.ibfont;
-+				if (disableitalic && !disablebold) font = &dc.bfont;
-+				if (!disableitalic && disablebold) font = &dc.ifont;
- 				frcflags = FRC_ITALICBOLD;
- 			} else if (mode & ATTR_ITALIC) {
--				font = &dc.ifont;
-+				if (!disableitalic) font = &dc.ifont;
- 				frcflags = FRC_ITALIC;
- 			} else if (mode & ATTR_BOLD) {
--				font = &dc.bfont;
-+				if (!disablebold) font = &dc.bfont;
- 				frcflags = FRC_BOLD;
- 			}
- 			yp = winy + font->ascent;
+@@ -960,17 +965,20 @@ xloadfonts(char *fontstr, double fontsize)
+ 	win.ch = ceilf(dc.font.height * chscale);
+ 
+ 	FcPatternDel(pattern, FC_SLANT);
+-	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
++	if (!disableitalic)
++		FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
+ 	if (xloadfont(&dc.ifont, pattern))
+ 		die("can't open font %s\n", fontstr);
+ 
+ 	FcPatternDel(pattern, FC_WEIGHT);
+-	FcPatternAddInteger(pattern, FC_WEIGHT, FC_WEIGHT_BOLD);
++	if (!disablebold)
++		FcPatternAddInteger(pattern, FC_WEIGHT, FC_WEIGHT_BOLD);
+ 	if (xloadfont(&dc.ibfont, pattern))
+ 		die("can't open font %s\n", fontstr);
+ 
+ 	FcPatternDel(pattern, FC_SLANT);
+-	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ROMAN);
++	if (!disableroman)
++		FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ROMAN);
+ 	if (xloadfont(&dc.bfont, pattern))
+ 		die("can't open font %s\n", fontstr);
+ 

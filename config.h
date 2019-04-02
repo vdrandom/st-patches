@@ -9,8 +9,9 @@ static char *font = "xos4 Terminus:bold:pixelsize=14";
 static int borderpx = 1;
 
 /* disable bold and italic font styles */
-int disablebold = 1;
+int disablebold = 0;
 int disableitalic = 1;
+int disableroman = 1;
 
 /*
  * What program is execed by st depends of these precedence rules:
