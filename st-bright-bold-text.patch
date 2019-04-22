@@ -13,7 +13,7 @@
  static unsigned int defaultcs = 256;
  static unsigned int defaultrcs = 257;
 diff --git a/st.c b/st.c
-index ede7ae6..e67ef3b 100644
+index ede7ae6..6e3fabe 100644
 --- a/st.c
 +++ b/st.c
 @@ -1351,6 +1351,7 @@ tsetattr(int *attr, int l)
@@ -24,16 +24,27 @@ index ede7ae6..e67ef3b 100644
  			term.c.attr.mode &= ~(
  				ATTR_BOLD       |
  				ATTR_FAINT      |
-@@ -1365,6 +1366,8 @@ tsetattr(int *attr, int l)
+@@ -1365,6 +1366,9 @@ tsetattr(int *attr, int l)
  			break;
  		case 1:
  			term.c.attr.mode |= ATTR_BOLD;
-+			if (!term.c.attr.colored)
++			if (!term.c.attr.colored) {
 +				term.c.attr.fg = defaultbd;
++			}
  			break;
  		case 2:
  			term.c.attr.mode |= ATTR_FAINT;
-@@ -1411,11 +1414,18 @@ tsetattr(int *attr, int l)
+@@ -1391,6 +1395,9 @@ tsetattr(int *attr, int l)
+ 			break;
+ 		case 22:
+ 			term.c.attr.mode &= ~(ATTR_BOLD | ATTR_FAINT);
++			if (!term.c.attr.colored) {
++				term.c.attr.fg = defaultfg;
++			}
+ 			break;
+ 		case 23:
+ 			term.c.attr.mode &= ~ATTR_ITALIC;
+@@ -1411,11 +1418,18 @@ tsetattr(int *attr, int l)
  			term.c.attr.mode &= ~ATTR_STRUCK;
  			break;
  		case 38:
@@ -54,7 +65,7 @@ index ede7ae6..e67ef3b 100644
  			break;
  		case 48:
  			if ((idx = tdefcolor(attr, &i, l)) >= 0)
-@@ -1426,10 +1436,12 @@ tsetattr(int *attr, int l)
+@@ -1426,10 +1440,12 @@ tsetattr(int *attr, int l)
  			break;
  		default:
  			if (BETWEEN(attr[i], 30, 37)) {
