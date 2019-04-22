@@ -11,9 +11,11 @@
  /*
   * What program is execed by st depends of these precedence rules:
   * 1: program passed with -e
+diff --git a/x.c b/x.c
+index 5828a3b..c433c58 100644
 --- a/x.c
 +++ b/x.c
-@@ -240,6 +240,10 @@ static char *opt_title = NULL;
+@@ -244,6 +244,10 @@ static char *opt_title = NULL;
  
  static int oldbutton = 3; /* button event on startup: 3 = release */
  
@@ -24,7 +26,7 @@
  void
  clipcopy(const Arg *dummy)
  {
-@@ -1152,13 +1156,15 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
+@@ -1177,13 +1181,15 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
  			frcflags = FRC_NORMAL;
  			runewidth = win.cw * ((mode & ATTR_WIDE) ? 2.0f : 1.0f);
  			if ((mode & ATTR_ITALIC) && (mode & ATTR_BOLD)) {

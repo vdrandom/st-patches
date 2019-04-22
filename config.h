@@ -9,8 +9,8 @@ static char *font = "xos4 Terminus:bold:pixelsize=14";
 static int borderpx = 1;
 
 /* disable bold and italic font styles */
-int disablebold = 1;
-int disableitalic = 1;
+// int disablebold = 1;
+// int disableitalic = 1;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -79,7 +79,7 @@ const int boxdraw_braille = 0;
 static int bellvolume = 0;
 
 /* default TERM value */
-char *termname = "st-256color";
+char *termname = "st-direct";
 
 /*
  * spaces per tab

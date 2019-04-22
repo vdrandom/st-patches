@@ -7,7 +7,7 @@ PATCHLIST=(
     st-bright-bold-text.patch
     st-clipboard.patch
     st-direct-terminfo.patch
-    st-disable-bold-italic-fonts.patch
+    # st-disable-bold-italic-fonts.patch
     st-disable-intensity-styles.patch
 )
 MAKE_OPTS=(
