@@ -4,9 +4,6 @@ ST_REPO=https://git.suckless.org/st
 ST_SRC=$PWD/st
 ST_CFG=$PWD/config.h
 PATCHLIST=(
-    st-bright-bold-text.patch
-    st-clipboard.patch
-    st-direct-terminfo.patch
     st-disable-intensity-styles.patch
 )
 MAKE_OPTS=(
